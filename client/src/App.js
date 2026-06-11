@@ -11,7 +11,7 @@ import AdminLogin from "./pages/Admin/login";
 
 
 function App() {
-  const API = "process.env.REACT_APP_BACKEND_URL";
+  const API = process.env.REACT_APP_BACKEND_URL;
 
   const { loading, portfolioData, reloadData } = useSelector((state) => state.root);
 
