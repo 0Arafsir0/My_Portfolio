@@ -7,7 +7,7 @@ function Header() {
         <img
           src={logo}
           alt="logo"
-          className="w-15 h-15 sm:w-10 sm:h-10 rounded-full border-white bg-white border-2 p-1 shadow-white shadow-lg"
+          className="w-[50px] h-[50px] sm:w-10 sm:h-10 rounded-full border-white bg-white border-2 p-1 shadow-white shadow-lg"
         />
       </div>
       <h1 className="text-partial text-4xl font-extrabold">Hello</h1>
