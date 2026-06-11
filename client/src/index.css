@@ -4,23 +4,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global font */
 * {
   font-family: "Titillium Web", sans-serif;
 }
 
+/* Logo animation */
 .logo {
   animation: logo 3s infinite;
 }
+
 @keyframes logo {
   0% {
     transform: rotate(360deg);
   }
 }
+
+/* Custom scrollbar (FIXED: no theme() usage) */
 @layer utilities {
-  /* Class to add to your React element */
   .scrollbar-custom {
     scrollbar-width: thin;
-    scrollbar-color: theme("colors.partial") theme("colors.primary");
+    scrollbar-color: #00bcd4 #0f172a;
   }
 
   .scrollbar-custom::-webkit-scrollbar {
@@ -28,21 +32,23 @@
   }
 
   .scrollbar-custom::-webkit-scrollbar-track {
-    background: theme("colors.primary");
+    background: #0f172a;
     border-radius: 9999px;
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: theme("colors.secondary");
+    background: #1e293b;
     border-radius: 9999px;
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: theme("colors.partial");
+    background: #00bcd4;
   }
 }
 
-input, textarea {
+/* Form inputs */
+input,
+textarea {
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -51,15 +57,19 @@ input, textarea {
   width: 100%;
 }
 
+/* Focus styles */
 input:focus {
   outline: none;
   border: 2px solid #555555;
   box-shadow: 0 0 5px rgba(45, 45, 45, 0.5);
 }
+
 textarea:focus {
   height: 100px;
   padding: 10px;
 }
-.ant-modal-warp {
+
+/* FIXED TYPO (was ant-modal-warp) */
+.ant-modal-wrap {
   z-index: 50;
-  }
+}
