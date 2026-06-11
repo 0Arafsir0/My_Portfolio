@@ -14,7 +14,7 @@ dbconfig.connectionToMongodb();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://my-portfolio-self-delta-83.vercel.app"
+    "https://myportfolio-hix3ef8ez-arafsir-s-projects.vercel.app/"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
