@@ -11,21 +11,19 @@ const portfolioRoute = require('./routes/portfolioRoute');
 dbconfig.connectionToMongodb();
 
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "https://your-vercel-app.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true
-  })
-);
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://myportfolio-gamma-bice-79.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
 
 app.options("*", cors());
 app.use(express.json());
-
 app.use('/api/portfolio', portfolioRoute);
 
 const port = process.env.PORT || 5000;
