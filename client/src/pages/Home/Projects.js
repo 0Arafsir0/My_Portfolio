@@ -51,19 +51,6 @@ function Projects() {
 
   const projects = portfolioData?.projects || [];
 
-  projects.map((project) => {
-    const {
-      description = "",
-      githubLink = "",
-      liveLink = "",
-      features = "",
-      image = "",
-      technologies = [],
-      title = "",
-    } = project;
-
-    return null;
-  });
 
   const selectedProject = projects[selectedItemIndex];
 
