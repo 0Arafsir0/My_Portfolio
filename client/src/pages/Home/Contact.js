@@ -9,7 +9,7 @@ function Contact() {
 
   return (
     <div>
-      <SectionTitle title="Say Hello" />
+      <SectionTitle title="Contact Info." />
 
       <div className="flex sm:flex-col items-center gap-5 py-20">
         {/* SIDE - LOTTIE */}
