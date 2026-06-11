@@ -31,8 +31,8 @@ function Intro() {
         </a>
       </div>
       {/* RIGHT PROFILE IMAGE */}
-      <div className="relative p-auto sm:py-10">
-        <div className="w-100 h-100 sm:w-48 sm:h-48 rounded-full p-2 border-2 border-partial shadow-partial shadow-xl">
+      <div className="p-auto sm:py-10 items-end justify-between ">
+        <div className="w- h-100 sm:w-48 sm:h-48 rounded-full p-2 border-2 border-partial shadow-partial shadow-xl">
           <img
             src={imgurl || me}
             alt="profile"
