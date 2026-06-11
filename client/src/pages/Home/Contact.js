@@ -27,7 +27,7 @@ function Contact() {
           <p className="text-tertiary">{"{"}</p>
 
           {Object.keys(contact)?.map((key) => {
-            if (key === "_id" || key === "__v") return null;
+            if (key === "_id" || key === "__v" || key === "imgurl") return null;
 
             return (
               <p key={key} className="ml-5">
