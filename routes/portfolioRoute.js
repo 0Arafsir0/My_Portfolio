@@ -339,33 +339,38 @@ router.post("/update-contact", async (req, res) => {
   }
 });
 //admin login
+const bcrypt = require("bcrypt");
+
 router.post("/admin-login", async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const admin = await users.findOne({ username, password });
-    
-    admin.password = "";
-      
-    if (admin) {
-      res.status(200).send({
-        success: true,  
-        message: "Login successful",
-        data: admin,
-      });
+    const admin = await users.findOne({ username });
+
+    if (!admin) {
+      return res.status(404).send({ success: false, message: "Admin not found" });
     }
-      else {
-        res.status(200).send({
-          success: false,
-          message: "Invalid username or password",
-        });
-      }
+
+    const isMatch = await bcrypt.compare(password, admin.password);
+
+    if (!isMatch) {
+      return res.status(401).send({ success: false, message: "Invalid credentials" });
+    }
+
+    const adminData = admin.toObject();
+    delete adminData.password;
+
+    res.status(200).send({
+      success: true,
+      message: "Login successful",
+      data: adminData,
+    });
+
   } catch (error) {
     res.status(500).send({
       success: false,
       message: error.message,
     });
-  } 
+  }
 });
-
 module.exports = router;
