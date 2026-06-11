@@ -11,7 +11,9 @@ function Header() {
         />
       </div>
       <h1 className="text-partial text-4xl font-extrabold">Hello</h1>
-      <h1 className="text-blue-400 text-4xl font-semibold">S</h1>
+      <div className="flex">
+        
+      </div>
     </div>
   );
 }
