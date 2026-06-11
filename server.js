@@ -10,17 +10,20 @@ const portfolioRoute = require('./routes/portfolioRoute');
 
 dbconfig.connectionToMongodb();
 
+
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://myportfolio-gamma-bice-79.vercel.app/",
-      "https://myportfolio-26gw.onrender.com"
+      "http://localhost:5173",
+      "https://your-vercel-app.vercel.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true
   })
 );
+
+app.options("*", cors());
 app.use(express.json());
 
 app.use('/api/portfolio', portfolioRoute);
