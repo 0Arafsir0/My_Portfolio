@@ -47,4 +47,5 @@
     "devDependencies": {
         "tailwindcss": "^3.4.19"
     },
+    "proxy": "https://my-portfolio-26gw.onrender.com"
 }
