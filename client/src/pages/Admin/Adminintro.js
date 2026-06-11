@@ -50,6 +50,9 @@ function Adminintro() {
         <Form.Item name="lastname" label="Last Name:">
           <input placeholder="write last name here..." />
         </Form.Item>
+        <Form.Item name="caption" label="Caption:">
+          <textarea placeholder="write a caption here..." />
+        </Form.Item>
         <Form.Item name="description" label="Description:">
           <textarea placeholder="write some description here..." />
         </Form.Item>
