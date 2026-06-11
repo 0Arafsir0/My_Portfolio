@@ -5,12 +5,7 @@ function Courses() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
   const courses = portfolioData?.courses || {};
-  const {
-    provider = "",
-    description = "",
-    duration = "",
-    title = "",
-  } = courses;
+  
   const selectedCourse = courses[selectedItemIndex];
 
   return (
@@ -34,7 +29,7 @@ function Courses() {
                     : "text-white"
                 }`}
               >
-                {course.title}
+                {course?.title}
               </h1>
             </div>
           ))}
@@ -43,20 +38,20 @@ function Courses() {
         {/* Course Details */}
         <div className="flex flex-col gap-5 flex-1">
           <h1 className="text-secondary text-3xl font-semibold">
-            {selectedCourse.title}
+            {selectedCourse?.title}
           </h1>
 
-          <h2 className="text-secondary text-xl">{selectedCourse.provider}</h2>
+          <h2 className="text-secondary text-xl">{selectedCourse?.provider}</h2>
 
-          <h3 className="text-partial">{selectedCourse.duration}</h3>
+          <h3 className="text-partial">{selectedCourse?.duration}</h3>
 
-          <p className="text-white leading-7">{selectedCourse.description}</p>
+          <p className="text-white leading-7">{selectedCourse?.description}</p>
 
           <div>
             <h2 className="text-secondary text-xl mb-3">Skills Acquired</h2>
 
             <div className="flex flex-wrap gap-3">
-              {selectedCourse.skills.map((skill, index) => (
+              {selectedCourse?.skills.map((skill, index) => (
                 <span
                   key={index}
                   className="px-4 py-1 rounded-full border border-partial text-partial"

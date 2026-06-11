@@ -86,7 +86,7 @@ function Projects() {
                     : "text-white"
                 }`}
               >
-                {project.title}
+                {project?.title}
               </h1>
             </div>
           ))}
@@ -94,17 +94,17 @@ function Projects() {
         {/* Selected Project Details */}
         <div className="flex flex-col gap-5 flex-1">
           <h1 className="text-secondary text-3xl font-semibold">
-            {selectedProject.title}
+            {selectedProject?.title}
           </h1>
 
-          <p className="text-white leading-7">{selectedProject.description}</p>
+          <p className="text-white leading-7">{selectedProject?.description}</p>
 
           {/* Technologies */}
           <div>
             <h2 className="text-secondary text-xl mb-3">Technologies Used</h2>
 
             <div className="flex flex-wrap gap-3">
-              {selectedProject.technologies?.map((tech, index) => (
+              {selectedProject?.technologies?.map((tech, index) => (
                 <span
                   key={index}
                   className="px-4 py-1 rounded-full border border-partial text-partial"
@@ -120,7 +120,7 @@ function Projects() {
             <h2 className="text-secondary text-xl mb-3">Key Features</h2>
 
             <ul className="list-disc ml-5 text-white flex flex-col gap-2">
-              {(selectedProject.features || [])
+              {(selectedProject?.features || [])
                 .toString()
                 .split(",")
                 .map((feature, index) => (
@@ -131,9 +131,9 @@ function Projects() {
 
           {/* Links */}
           <div className="flex gap-5 mt-3">
-            {selectedProject.link && (
+            {selectedProject?.link && (
               <a
-                href={selectedProject.link}
+                href={selectedProject?.link}
                 target="_blank"
                 rel="noreferrer"
                 className="px-5 py-2 border border-partial text-partial rounded hover:bg-partial hover:text-primary transition"
@@ -159,7 +159,7 @@ function Projects() {
                     : "text-white"
                 }`}
               >
-                {project.title}
+                {project?.title}
               </h1>
             </div>
           ))}

@@ -9,13 +9,6 @@ function Experiences() {
 
   const experiences = portfolioData?.experiences || {};
 
-  const {
-    skills = [],
-    description = "",
-    duration = "",
-    provider = "",
-    title = "",
-  } = experiences;
   return (
     <div>
       <SectionTitle title="Experiences" />
@@ -35,7 +28,7 @@ function Experiences() {
                     : "text-white"
                 }`}
               >
-                {exp.period}
+                {exp?.period}
               </h1>
             </div>
           ))}
@@ -43,13 +36,13 @@ function Experiences() {
 
         <div className="flex flex-col gap-5">
           <h1 className="text-white text-2xl">
-            {experiences[selectedItemIndex].position}
+            {experiences[selectedItemIndex]?.position}
           </h1>
           <h1 className="text-secondary text-xl">
-            {experiences[selectedItemIndex].company}
+            {experiences[selectedItemIndex]?.company}
           </h1>
           <p className="text-white">
-            {experiences[selectedItemIndex].description}
+            {experiences[selectedItemIndex]?.description}
           </p>
         </div>
       </div>
