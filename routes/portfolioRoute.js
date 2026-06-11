@@ -10,28 +10,50 @@ const {
 const users =require("../models/users");
 
 //get all portfolio data
+// router.get("/get-portfolio-data", async (req, res) => {
+//   try {
+//     const intros = await Intro.find();
+//     const abouts = await About.find();
+//     const projects = await Project.find();
+//     const contacts = await Contact.find();
+//     const experiences = await Experience.find();
+//     const courses = await Course.find();
+//     res.status(200).send({
+//       intro: intros[0],
+//       about: abouts[0],
+//       projects: projects,
+//       contact: contacts[0],
+//       experiences: experiences,
+//       courses: courses,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching portfolio data:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 router.get("/get-portfolio-data", async (req, res) => {
   try {
     const intros = await Intro.find();
     const abouts = await About.find();
-    const projecs = await Project.find();
+    const projects = await Project.find();
     const contacts = await Contact.find();
     const experiences = await Experience.find();
     const courses = await Course.find();
+
     res.status(200).send({
-      intro: intros[0],
-      about: abouts[0],
-      projects: projecs,
-      contact: contacts[0],
-      experiences: experiences,
-      courses: courses,
+      intro: intros?.[0] || {},
+      about: abouts?.[0] || {},
+      projects: projects || [],
+      contact: contacts?.[0] || {},
+      experiences: experiences || [],
+      courses: courses || [],
     });
+
   } catch (error) {
-    console.error("Error fetching portfolio data:", error);
+    console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 //update intro
 // router.post("/update-intro", async (req, res) => {
 //   try {
