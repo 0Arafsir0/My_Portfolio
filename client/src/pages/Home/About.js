@@ -38,7 +38,7 @@ function About() {
           Here are few technologies I've been working with recently:
         </h1>
         <div className="flex flex-wrap gap-8 mt-5 sm:gap-2">
-          {skills.map((skill, index) => (
+          {skills?.map((skill, index) => (
             <div className="text-partial border border-partial py-3 px-5 rounded-full hover:bg-partial hover:text-primary transition">
               <h1>{skill}</h1>
             </div>

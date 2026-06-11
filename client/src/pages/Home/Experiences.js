@@ -73,7 +73,7 @@ function Experiences() {
         {/* LEFT SIDE LIST */}
         <div className="flex flex-col gap-10 sm:gap-0 border-l-[1px] border-white border-opacity-30 max-h-96 overflow-y-auto scrollbar-custom sm:flex-row sm:overflow-auto">
 
-          {experiences.map((exp, index) => (
+          {experiences?.map((exp, index) => (
             <div
               key={index}
               onClick={() => setSelectedItemIndex(index)}

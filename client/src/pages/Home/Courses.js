@@ -96,7 +96,7 @@ function Courses() {
           {courses.length === 0 ? (
             <p className="text-white px-5">No courses available</p>
           ) : (
-            courses.map((course, index) => (
+            courses?.map((course, index) => (
               <div
                 key={index}
                 onClick={() => setSelectedItemIndex(index)}
@@ -142,7 +142,7 @@ function Courses() {
 
             <div className="flex flex-wrap gap-3">
               {Array.isArray(selectedCourse?.skills) ? (
-                selectedCourse.skills.map((skill, index) => (
+                selectedCourse.skills?.map((skill, index) => (
                   <span
                     key={index}
                     className="px-4 py-1 rounded-full border border-partial text-partial"

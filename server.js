@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://myportfolio-12s57a44o-arafsir-s-projects.vercel.app",
+      "https://myportfolio-gamma-bice-79.vercel.app/",
       "https://myportfolio-26gw.onrender.com"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],

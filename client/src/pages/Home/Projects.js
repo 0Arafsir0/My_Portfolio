@@ -59,7 +59,7 @@ function Projects() {
       <SectionTitle title="Projects" />
       <div className="flex py-10 gap-20 sm:flex-col">
         <div className=" gap-10 sm:gap-0 border-r-[1px] border-white border-opacity-30 sm:flex-row sm:overflow-auto max-h-96 overflow-y-auto scrollbar-custom hidden sm:flex ">
-          {projects.map((project, index) => (
+          {projects?.map((project, index) => (
             <div
               key={index}
               onClick={() => setSelectedItemIndex(index)}
@@ -110,7 +110,7 @@ function Projects() {
               {(selectedProject?.features || [])
                 .toString()
                 .split(",")
-                .map((feature, index) => (
+                ?.map((feature, index) => (
                   <li key={index}>{feature.trim()}</li>
                 ))}
             </ul>

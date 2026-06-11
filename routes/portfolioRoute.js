@@ -104,7 +104,7 @@ router.post("/update-about", async (req, res) => {
     if (values.skills && typeof values.skills === "string") {
       values.skills = values.skills
         .split(",")
-        .map((s) => s.trim())
+        ?.map((s) => s.trim())
         .filter(Boolean);
     }
 
@@ -196,7 +196,7 @@ router.post("/add-project", async (req, res) => {
     if (typeof values.technologies === "string") {
       values.technologies = values.technologies
         .split(",")
-        .map((t) => t.trim())
+        ?.map((t) => t.trim())
         .filter(Boolean);
     }
 
@@ -224,7 +224,7 @@ router.post("/update-project", async (req, res) => {
     if (typeof values.technologies === "string") {
       values.technologies = values.technologies
         .split(",")
-        .map((t) => t.trim())
+        ?.map((t) => t.trim())
         .filter(Boolean);
     }
 
@@ -271,7 +271,7 @@ router.post("/add-course", async (req, res) => {
     if (typeof values.skills === "string") {
       values.skills = values.skills
         .split(",")
-        .map((s) => s.trim())
+        ?.map((s) => s.trim())
         .filter(Boolean);
     }
 
@@ -298,7 +298,7 @@ router.post("/update-course", async (req, res) => {
     if (typeof values.skills === "string") {
       values.skills = values.skills
         .split(",")
-        .map((s) => s.trim())
+        ?.map((s) => s.trim())
         .filter(Boolean);
     }
 

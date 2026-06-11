@@ -97,7 +97,7 @@ function Adminexperience() {
 
       {/* Experience cards */}
       <div className="grid grid-cols-3 sm:grid-cols-1 gap-5">
-        {experiences.map((experience) => (
+        {experiences?.map((experience) => (
           <div
             key={experience._id}
             className="shadow border border-gray-300 rounded p-4 m-2 flex flex-col"

@@ -47,7 +47,7 @@ function Intro() {
         <button className="border-2 border-partial text-partial px-10 py-2 rounded hover:bg-partial hover:text-primary transition hidden sm:block ">
           Get Started
         </button>
-      </a>
+      </a>s
     </div>
   );
 }

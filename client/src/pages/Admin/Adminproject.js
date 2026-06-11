@@ -108,7 +108,7 @@ function Adminproject() {
       {/* GRID */}
       <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-5 mt-5">
 
-        {projects.map((project) => (
+        {projects?.map((project) => (
           <div
             key={project._id}
             className="shadow border border-gray-300 rounded-lg p-4 flex flex-col gap-2 bg-white"
