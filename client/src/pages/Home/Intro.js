@@ -4,9 +4,15 @@ import { useSelector } from "react-redux";
 
 function Intro() {
   const { loading, portfolioData } = useSelector((state) => state.root);
-  const { intro } = portfolioData;
-  const { firstname, lastname, welcometext, caption, description, imgurl } =
-    intro;
+  const intro = portfolioData?.intro || {};
+  const {
+    firstname = "",
+    lastname = "",
+    welcometext = "",
+    caption = "",
+    description = "",
+    imgurl = "",
+  } = intro;
   return (
     <div className="flex flex-row sm:flex-col items-center">
       <div className="h-[80vh] sm:h-auto bg-primary flex flex-col items-start justify-center gap-8 sm:gap-4 py-10 sm:py-2 sm:items-center">
@@ -19,9 +25,9 @@ function Intro() {
         </h1>
         <p className="text-white w-2/3 sm:w-full">{description}</p>
         <a href="#about">
-        <button className="border-2 border-partial text-partial px-10 py-3 rounded hover:bg-partial hover:text-primary transition sm:hidden ">
-          Get Started
-        </button>
+          <button className="border-2 border-partial text-partial px-10 py-3 rounded hover:bg-partial hover:text-primary transition sm:hidden ">
+            Get Started
+          </button>
         </a>
       </div>
       {/* RIGHT PROFILE IMAGE */}
@@ -38,7 +44,7 @@ function Intro() {
         <div className="absolute inset-0 rounded-full blur-2xl bg-partial opacity-20 -z-10"></div>
       </div>
       <a href="#about">
-        <button className="border-2 border-partial text-partial px-10 py-2 rounded hover:bg-partial hover:text-primary transition hidden sm:block " >
+        <button className="border-2 border-partial text-partial px-10 py-2 rounded hover:bg-partial hover:text-primary transition hidden sm:block ">
           Get Started
         </button>
       </a>

@@ -6,8 +6,16 @@ import { useSelector } from "react-redux";
 function Experiences() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
-  const { experiences } = portfolioData;
-  const { skills, description, duration, provider, title } = experiences;
+
+  const experiences = portfolioData?.experiences || {};
+
+  const {
+    skills = [],
+    description = "",
+    duration = "",
+    provider = "",
+    title = "",
+  } = experiences;
   return (
     <div>
       <SectionTitle title="Experiences" />

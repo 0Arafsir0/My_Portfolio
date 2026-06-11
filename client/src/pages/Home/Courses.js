@@ -4,13 +4,12 @@ import { useSelector } from "react-redux";
 function Courses() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
-  const { courses } = portfolioData;
+  const courses = portfolioData?.courses || {};
   const {
-    provider,
-    description,
-    duration,
-
-    title,
+    provider = "",
+    description = "",
+    duration = "",
+    title = "",
   } = courses;
   const selectedCourse = courses[selectedItemIndex];
 

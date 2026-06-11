@@ -4,11 +4,17 @@ import { useSelector } from "react-redux";
 
 function About() {
   const { loading, portfolioData } = useSelector((state) => state.root);
-  const { about } = portfolioData;
-  const { skills, description1, description2, imgurl } = about;
+  const about = portfolioData?.about || {};
+
+  const {
+    skills = [],
+    description1 = "",
+    description2 = "",
+    imgurl = "",
+  } = about;
   return (
     <div id="about" className="text-white">
-      <SectionTitle  title="About" />
+      <SectionTitle title="About" />
       <div className="flex w-full items-center sm:flex-col">
         <div className="bg-primary w-1/2 sm:w-full">
           <dotlottie-wc

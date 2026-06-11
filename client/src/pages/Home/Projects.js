@@ -48,16 +48,22 @@ import { useSelector } from "react-redux";
 function Projects() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
-  const { projects } = portfolioData;
-  const {
-    description,
-    githubLink,
-    liveLink,
-    features,
-    image,
-    technologies,
-    title,
-  } = projects;
+
+  const projects = portfolioData?.projects || [];
+
+  projects.map((project) => {
+    const {
+      description = "",
+      githubLink = "",
+      liveLink = "",
+      features = "",
+      image = "",
+      technologies = [],
+      title = "",
+    } = project;
+
+    return null;
+  });
 
   const selectedProject = projects[selectedItemIndex];
 
@@ -111,9 +117,7 @@ function Projects() {
 
           {/* Features */}
           <div>
-            <h2 className="text-secondary text-xl mb-3">
-              Key Features
-            </h2>
+            <h2 className="text-secondary text-xl mb-3">Key Features</h2>
 
             <ul className="list-disc ml-5 text-white flex flex-col gap-2">
               {(selectedProject.features || [])
