@@ -86,7 +86,7 @@ function Courses() {
 
   return (
     <div>
-      <SectionTitle title="Training" />
+      <SectionTitle title="Professional Experience" />
 
       <div className="flex py-10 gap-20 sm:flex-col">
         
