@@ -104,9 +104,9 @@ function AdminCourse() {
               {course.title}
             </h1>
 
-            <p className="text-secondary">{course.provider}</p>
-            <p className="text-white">{course.duration}</p>
-            <p className="text-white">{course.description}</p>
+            <p className="text-primary">{course.provider}</p>
+            <p className="text-black">{course.duration}</p>
+            <p className="text-black">{course.description}</p>
 
             {/* Skills */}
             <div className="flex flex-wrap gap-2 mt-2">
