@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../utils/api";
 import Header from "../../components/Header";
 import { Tabs } from "antd";
 import Adminintro from "./Adminintro";
@@ -10,12 +11,18 @@ import Adminexperience from "./Adminexperience";
 
 function Admin() {
 
-useEffect(() => {
-  const adminToken = localStorage.getItem("adminToken");
-  if (!adminToken) {
-    window.location.href = "/admin-login";
-  }
-}, []);
+const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    api.get("/api/portfolio/admin/me")
+      .then(() => { if (active) setAuthorized(true); })
+      .catch(() => {
+        localStorage.removeItem("adminToken");
+        window.location.replace("/admin-login");
+      });
+    return () => { active = false; };
+  }, []);
 
 
 
@@ -53,6 +60,8 @@ useEffect(() => {
   }
   
 ];
+  if (!authorized) return <div className="min-h-screen bg-primary" />;
+
   return (
     <div>
       <Header />
