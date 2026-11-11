@@ -10,7 +10,7 @@ A dynamic personal portfolio built with the MERN stack. The React application re
 ## Stack
 
 - React 18, React Router, Redux Toolkit
-- Tailwind CSS, Ant Design, Framer Motion, Lucide React
+- Tailwind CSS, Ant Design, Framer Motion, Lucide React, Three.js, React Three Fiber
 - Node.js, Express 5, Mongoose, MongoDB Atlas
 - JWT authentication, bcryptjs password hashing, express-rate-limit
 - Vercel (frontend) and Render (backend)
