@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import HeroScene from "./HeroScene";
 import { ArrowDown, ArrowUpRight, Github, Linkedin } from "lucide-react";
 import me from "../../Resources/me.jpeg";
 import { useSelector } from "react-redux";
@@ -56,6 +57,7 @@ function Intro() {
         <motion.div initial={{ opacity: 0, scale: 0.88, rotate: 5 }} animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }} className="col-span-5 flex justify-center md:row-start-1">
           <div className="relative flex h-[390px] w-[390px] items-center justify-center sm:h-[270px] sm:w-[270px]">
+            <div className="absolute inset-0 md:hidden"><HeroScene /></div>
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
               className="absolute inset-2 rounded-full border border-dashed border-sky-400/25" />
             <motion.div animate={{ rotate: -360 }} transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
