@@ -21,7 +21,7 @@ const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 10, standardHe
 //     const intros = await Intro.find();
 //     const abouts = await About.find();
 //     const projects = await Project.find();
-//     const contacts = await Contact.find();
+//     const contacts = await Contact.find().select("name email phone country");
 //     const experiences = await Experience.find();
 //     const courses = await Course.find();
 //     res.status(200).send({
