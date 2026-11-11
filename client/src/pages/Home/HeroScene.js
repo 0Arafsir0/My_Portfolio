@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
 
@@ -35,6 +35,17 @@ function OrbitalMesh({ reduceMotion }) {
 
 function HeroScene() {
   const reduceMotion = useReducedMotion();
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const updateViewport = () => setIsDesktop(media.matches);
+    updateViewport();
+    media.addEventListener("change", updateViewport);
+    return () => media.removeEventListener("change", updateViewport);
+  }, []);
+
+  if (!isDesktop || reduceMotion) return null;
 
   return (
     <div className="h-full w-full" aria-hidden="true">
