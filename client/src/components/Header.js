@@ -431,7 +431,7 @@ function Header() {
         </motion.a>
 
         {/* Middle: Desktop navigation (728px and above) */}
-        <div className="relative z-10 hidden items-center gap-2 min-[728px]:flex xl:gap-5">
+        <div className="relative z-10 items-center gap-2 min-[728px]:flex xl:gap-5">
           {links.map((link) => (
             <motion.a
               key={link.href}
@@ -448,7 +448,7 @@ function Header() {
         </div>
 
         {/* Right: Desktop social links and contact button */}
-        <div className="relative z-10 hidden shrink-0 items-center gap-2 min-[728px]:flex xl:gap-3">
+        <div className="relative z-10 shrink-0 items-center gap-2 min-[728px]:flex xl:gap-3">
           {socialLinks.map(({ href, label, icon: Icon }) => (
             <motion.a
               key={label}
@@ -521,7 +521,7 @@ function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.97 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl min-[728px]:hidden"
+            className="mx-auto hidden mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl min-[728px]:hidden"
           >
             <div className="border-b border-white/[0.07] px-6 py-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-sky-400">
