@@ -431,7 +431,7 @@ function Header() {
         </motion.a>
 
         {/* Middle: Desktop navigation (728px and above) */}
-        <div className="relative z-10 hidden items-center gap-3 min-[728px]:flex xl:gap-6">
+        <div className="relative z-10 hidden items-center gap-2 min-[728px]:flex xl:gap-5">
           {links.map((link) => (
             <motion.a
               key={link.href}
