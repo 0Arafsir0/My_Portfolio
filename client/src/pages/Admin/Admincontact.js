@@ -56,14 +56,6 @@ function AdminContact() {
           <input className="w-full border p-2" />
         </Form.Item>
 
-        <Form.Item name="age" label="Age">
-          <input type="number" className="w-full border p-2" />
-        </Form.Item>
-
-        <Form.Item name="gender" label="Gender">
-          <input className="w-full border p-2" />
-        </Form.Item>
-
         <Form.Item name="email" label="Email">
           <input className="w-full border p-2" />
         </Form.Item>
@@ -73,10 +65,6 @@ function AdminContact() {
         </Form.Item>
 
         <Form.Item name="country" label="Country">
-          <input className="w-full border p-2" />
-        </Form.Item>
-
-        <Form.Item name="imgurl" label="Image URL">
           <input className="w-full border p-2" />
         </Form.Item>
 
