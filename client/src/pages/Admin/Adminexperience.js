@@ -9,7 +9,7 @@ import { message } from "antd";
 function Adminexperience() {
   const dispatch = useDispatch();
   const { portfolioData } = useSelector((state) => state.root);
-  const { experiences } = portfolioData;
+  const { experiences } = portfolioData || {};
 
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [selectedItemForEdit, setSelectedItemForEdit] = useState(null);
