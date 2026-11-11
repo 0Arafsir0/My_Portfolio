@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Modal, Form } from "antd";
 import { ShowLoading, HideLoading, ReloadData } from "../../redux/rootSlice";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import api from "../../utils/api";
 import { message } from "antd";
 
 function Adminexperience() {
@@ -13,7 +13,6 @@ function Adminexperience() {
 
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [selectedItemForEdit, setSelectedItemForEdit] = useState(null);
-  const API = process.env.REACT_APP_BACKEND_URL;
 
   const [form] = Form.useForm();
 
@@ -21,7 +20,7 @@ function Adminexperience() {
     try {
       dispatch(ShowLoading());
 
-      const response = await axios.post(`${API}/api/portfolio/delete-experience`, {
+      const response = await api.post(`/api/portfolio/delete-experience`, {
         _id: id,
       });
 
@@ -50,8 +49,8 @@ function Adminexperience() {
         _id: selectedItemForEdit?._id, // only for edit
       };
 
-      const response = await axios.post(
-        `${API}${isEdit ? "/api/portfolio/update-experience" : "/api/portfolio/add-experience"}`,
+      const response = await api.post(
+        `${isEdit ? "/api/portfolio/update-experience" : "/api/portfolio/add-experience"}`,
         payload,
       );
 
