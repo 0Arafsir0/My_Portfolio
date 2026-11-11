@@ -318,7 +318,7 @@
 
 // export default Header;
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -354,6 +354,19 @@ const socialLinks = [
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Close mobile menu when switching to desktop width.
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 728) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const navVariants = {
     hidden: { opacity: 0, y: -25 },
     visible: {
@@ -377,7 +390,7 @@ function Header() {
         variants={navVariants}
         initial="hidden"
         animate="visible"
-        className="portfolio-nav relative mx-auto flex h-[68px] max-w-7xl items-center justify-between rounded-2xl border border-white/[0.09] bg-[#080d1a]/85 px-4 shadow-[0_12px_50px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:h-[76px] sm:px-8"
+        className="portfolio-nav relative mx-auto flex h-[68px] max-w-7xl items-center justify-between rounded-2xl border border-white/[0.09] bg-[#080d1a]/85 px-4 shadow-[0_12px_50px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:h-[76px] sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
         {/* Ambient lighting */}
@@ -386,54 +399,56 @@ function Header() {
           <div className="absolute -right-20 -bottom-20 h-40 w-40 rounded-full bg-violet-500/[0.07] blur-[70px]" />
         </div>
 
-        {/* Logo */}
+        {/* Left: Logo and identity */}
         <motion.a
           href="#home"
           aria-label="Arafat Siraj home"
           whileHover={{
-            scale: 1.08,
-            rotateY: 12,
-            rotateX: -8,
+            scale: 1.05,
+            rotateY: 8,
+            rotateX: -5,
           }}
           whileTap={{ scale: 0.94 }}
-          className="group relative z-10 flex shrink-0 items-center gap-3"
+          className="group relative z-10 flex shrink-0 items-center gap-2 sm:gap-3"
           style={{ perspective: 600 }}
         >
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/30 bg-gradient-to-br from-sky-400/20 via-[#101b30] to-violet-500/20 shadow-[0_0_25px_rgba(56,189,248,0.12)] sm:h-11 sm:w-11">
+          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-sky-400/30 bg-gradient-to-br from-sky-400/20 via-[#101b30] to-violet-500/20 shadow-[0_0_25px_rgba(56,189,248,0.12)] sm:h-11 sm:w-11">
             <span className="font-mono text-lg font-bold text-white">
               AS<span className="text-sky-400">.</span>
             </span>
+
             <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-[#080d1a] bg-sky-400 shadow-[0_0_10px_#38bdf8]" />
           </div>
 
-          <div className="hidden sm:block">
-            <p className="text-sm font-bold tracking-wide text-white">
+          <div>
+            <p className="whitespace-nowrap text-xs font-bold tracking-wide text-white sm:text-sm">
               Arafat Siraj
             </p>
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">
+            <p className="whitespace-nowrap font-mono text-[8px] uppercase tracking-[0.15em] text-slate-500 sm:text-[9px] sm:tracking-[0.2em]">
               Software Engineer
             </p>
           </div>
         </motion.a>
 
-        {/* Expanded desktop navigation: 1024px and above */}
-        <div className="relative z-10 lg:flex items-center gap-5 xl:gap-7 sm:hidden">
+        {/* Middle: Desktop navigation (728px and above) */}
+        <div className="relative z-10 hidden items-center gap-3 min-[728px]:flex xl:gap-6">
           {links.map((link) => (
             <motion.a
               key={link.href}
               variants={linkVariants}
               href={link.href}
               whileHover={{ y: -3 }}
-              className="group relative whitespace-nowrap py-2 text-[11px] font-medium tracking-wide text-slate-400 transition-colors duration-300 hover:text-white xl:text-xs"
+              className="group relative whitespace-nowrap py-2 text-[10px] font-medium tracking-wide text-slate-400 transition-colors duration-300 hover:text-white lg:text-[11px] xl:text-xs"
             >
               {link.label}
+
               <span className="absolute -bottom-1 left-0 h-[2px] w-0 rounded-full bg-gradient-to-r from-sky-400 to-violet-400 transition-all duration-300 group-hover:w-full" />
             </motion.a>
           ))}
         </div>
 
-        {/* Desktop actions */}
-        <div className="relative z-10 hidden shrink-0 items-center gap-2 xl:gap-3 sm:flex">
+        {/* Right: Desktop social links and contact button */}
+        <div className="relative z-10 hidden shrink-0 items-center gap-2 min-[728px]:flex xl:gap-3">
           {socialLinks.map(({ href, label, icon: Icon }) => (
             <motion.a
               key={label}
@@ -447,10 +462,10 @@ function Header() {
                 scale: 1.08,
               }}
               whileTap={{ scale: 0.92 }}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-slate-400 shadow-lg transition-colors duration-300 hover:border-sky-400/40 hover:bg-sky-400/10 hover:text-sky-300 xl:h-10 xl:w-10"
+              className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-slate-400 shadow-lg transition-colors duration-300 hover:border-sky-400/40 hover:bg-sky-400/10 hover:text-sky-300 lg:h-9 lg:w-9 xl:h-10 xl:w-10"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <Icon size={17} />
+              <Icon size={16} />
             </motion.a>
           ))}
 
@@ -462,21 +477,22 @@ function Header() {
               boxShadow: "0 10px 30px rgba(56,189,248,0.2)",
             }}
             whileTap={{ scale: 0.96 }}
-            className="group ml-1 inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-sky-300/30 bg-gradient-to-r from-sky-400 to-cyan-300 px-3 py-3 text-xs font-bold text-[#06111e] shadow-[0_5px_20px_rgba(56,189,248,0.15)] transition-all xl:ml-2 xl:px-5"
+            className="group ml-1 inline-flex items-center gap-1 whitespace-nowrap rounded-xl border border-sky-300/30 bg-gradient-to-r from-sky-400 to-cyan-300 px-2.5 py-2.5 text-[10px] font-bold text-[#06111e] shadow-[0_5px_20px_rgba(56,189,248,0.15)] transition-all lg:px-3 lg:text-xs xl:ml-2 xl:px-5"
           >
             Let's talk
+
             <ArrowUpRight
-              size={16}
+              size={14}
               className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
             />
           </motion.a>
         </div>
 
-        {/* Collapsed mobile/tablet menu button: below 1024px */}
+        {/* Mobile hamburger: below 728px */}
         <motion.button
           type="button"
           whileTap={{ scale: 0.9 }}
-          className="relative z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-sky-400/40 hover:text-sky-300 sm:flex lg:hidden"
+          className="relative z-20 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-sky-400/40 hover:text-sky-300 min-[728px]:hidden"
           onClick={() => setMenuOpen((open) => !open)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
@@ -496,7 +512,7 @@ function Header() {
         </motion.button>
       </motion.nav>
 
-      {/* Dropdown navigation */}
+      {/* Mobile dropdown */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -505,7 +521,7 @@ function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.97 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl lg:hidden"
+            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl min-[728px]:hidden"
           >
             <div className="border-b border-white/[0.07] px-6 py-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-sky-400">
@@ -514,6 +530,7 @@ function Header() {
               </div>
             </div>
 
+            {/* Navigation links */}
             <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-2">
               {links.map((link, index) => (
                 <motion.a
@@ -526,6 +543,7 @@ function Header() {
                   className="group flex items-center justify-between rounded-xl border border-transparent px-4 py-3 text-sm text-slate-300 transition-all duration-300 hover:border-sky-400/20 hover:bg-sky-400/[0.06] hover:text-sky-300"
                 >
                   {link.label}
+
                   <ArrowUpRight
                     size={15}
                     className="opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100"
@@ -534,6 +552,7 @@ function Header() {
               ))}
             </div>
 
+            {/* Mobile social links and contact */}
             <div className="flex items-center justify-between border-t border-white/[0.07] px-6 py-4">
               <div className="flex gap-5">
                 {socialLinks.map(({ href, label, icon: Icon }) => (
