@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
+import api from "../../utils/api";
 import Loader from "../Home/Loader";
 import { ShowLoading, HideLoading, ReloadData } from "../../redux/rootSlice";
 
@@ -9,7 +9,6 @@ function AdminContact() {
   const dispatch = useDispatch();
   const { portfolioData } = useSelector((state) => state.root);
   const { contact } = portfolioData || {};
-  const API = process.env.REACT_APP_BACKEND_URL;
 
   const [form] = Form.useForm();
 
@@ -17,8 +16,8 @@ function AdminContact() {
     try {
       dispatch(ShowLoading());
 
-      const response = await axios.post(
-        `${API}/api/portfolio/update-contact`,
+      const response = await api.post(
+        `/api/portfolio/update-contact`,
         {
           values,
           _id: contact?._id,
