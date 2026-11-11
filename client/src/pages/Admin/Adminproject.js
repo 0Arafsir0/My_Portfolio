@@ -201,8 +201,16 @@ function Adminproject() {
             <textarea className="w-full border p-2" />
           </Form.Item>
 
-          <Form.Item name="link" label="Project Link">
-            <input className="w-full border p-2" />
+          <Form.Item name="link" label="Live Demo URL">
+            <input className="w-full border p-2" placeholder="https://..." />
+          </Form.Item>
+
+          <Form.Item name="githubUrl" label="GitHub Repository URL">
+            <input className="w-full border p-2" placeholder="https://github.com/..." />
+          </Form.Item>
+
+          <Form.Item name="imageUrl" label="Project Screenshot URL">
+            <input className="w-full border p-2" placeholder="https://..." />
           </Form.Item>
 
           <button className="bg-primary text-white px-5 py-2 mt-3 w-full hover:bg-partial transition">
