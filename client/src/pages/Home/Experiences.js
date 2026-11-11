@@ -1,114 +1,30 @@
-// import React from "react";
-// import SectionTitle from "../../components/SectionTitle";
-// // import { experiences } from "../../Resources/experience";
-// import { useSelector } from "react-redux";
-
-// function Experiences() {
-//   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
-//   const { portfolioData } = useSelector((state) => state.root);
-
-//   const experiences = portfolioData?.experiences || {};
-
-//   return (
-//     <div>
-//       <SectionTitle title="Experiences" />
-//       <div className=" flex py-10 gap-20 sm:flex-col">
-//         <div className="flex flex-col gap-10 sm:gap-0 border-l-[1px]  border-white border-opacity-30 max-h-96 overflow-y-auto scrollbar-custom sm:flex-row sm:overflow-auto">
-//           {experiences.map((exp, index) => (
-//             <div
-//               key={index}
-//               onClick={() => setSelectedItemIndex(index)}
-//               className="cursor-pointer"
-//             >
-//               <h1
-//                 className={`text-xl sm:text-sm px-5 
-//                 ${
-//                   selectedItemIndex === index
-//                     ? "text-partial border-l-4 border-partial -ml-[3px] bg-partial bg-opacity-35"
-//                     : "text-white"
-//                 }`}
-//               >
-//                 {exp?.period}
-//               </h1>
-//             </div>
-//           ))}
-//         </div>
-
-//         <div className="flex flex-col gap-5">
-//           <h1 className="text-white text-2xl">
-//             {experiences[selectedItemIndex]?.position}
-//           </h1>
-//           <h1 className="text-secondary text-xl">
-//             {experiences[selectedItemIndex]?.company}
-//           </h1>
-//           <p className="text-white">
-//             {experiences[selectedItemIndex]?.description}
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Experiences;
 import React from "react";
+import { motion } from "framer-motion";
 import SectionTitle from "../../components/SectionTitle";
 import { useSelector } from "react-redux";
 
 function Experiences() {
-  const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
-
-  // ✅ FIX: must be array, not object
-  const experiences = Array.isArray(portfolioData?.experiences)
-    ? portfolioData.experiences
-    : [];
+  const experiences = Array.isArray(portfolioData?.experiences) ? portfolioData.experiences : [];
 
   return (
-    <div>
-      <SectionTitle title="Educational Background" />
-
-      <div className="flex py-10 gap-20 sm:flex-col">
-        
-        {/* LEFT SIDE LIST */}
-        <div className="flex flex-col gap-10 sm:gap-0 border-l-[1px] border-white border-opacity-30 max-h-96 overflow-y-auto scrollbar-custom sm:flex-row sm:overflow-auto">
-
-          {experiences?.map((exp, index) => (
-            <div
-              key={index}
-              onClick={() => setSelectedItemIndex(index)}
-              className="cursor-pointer"
-            >
-              <h1
-                className={`text-xl sm:text-sm px-5 ${
-                  selectedItemIndex === index
-                    ? "text-partial border-l-4 border-partial -ml-[3px] bg-partial bg-opacity-35"
-                    : "text-white"
-                }`}
-              >
-                {exp?.period}
-              </h1>
-            </div>
-          ))}
-        </div>
-
-        {/* RIGHT SIDE DETAILS */}
-        <div className="flex flex-col gap-5">
-          <h1 className="text-white text-2xl">
-            {experiences[selectedItemIndex]?.position || ""}
-          </h1>
-
-          <h1 className="text-secondary text-xl">
-            {experiences[selectedItemIndex]?.company || ""}
-          </h1>
-
-          <p className="text-white">
-            {experiences[selectedItemIndex]?.description || ""}
-          </p>
-        </div>
-
+    <section id="education" className="scroll-mt-28 py-16">
+      <SectionTitle title="Education" eyebrow="ACADEMIC BACKGROUND" />
+      <div className="relative ml-2 border-l border-sky-400/25 pl-8">
+        {experiences.length ? experiences.map((item, index) => (
+          <motion.article key={item._id || `${item.period}-${index}`}
+            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.5, delay: index * 0.08 }}
+            className="relative mb-8 rounded-2xl border border-white/10 bg-white/[0.025] p-6 last:mb-0 md:p-5">
+            <span className="absolute -left-[37px] top-7 h-4 w-4 rounded-full border-4 border-[#070b14] bg-sky-400 shadow-[0_0_18px_rgba(56,189,248,.6)]" />
+            <p className="font-mono text-xs tracking-wide text-sky-300">{item.period}</p>
+            <h3 className="mt-3 text-lg font-semibold text-white">{item.position || "Education"}</h3>
+            <p className="mt-1 text-sm text-indigo-300">{item.company}</p>
+            <p className="mt-3 text-sm leading-7 text-slate-400">{item.description}</p>
+          </motion.article>
+        )) : <p className="text-sm text-slate-500">Education history will appear here.</p>}
       </div>
-    </div>
+    </section>
   );
 }
 

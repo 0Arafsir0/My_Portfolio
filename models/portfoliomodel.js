@@ -84,6 +84,14 @@ const projectSchema = new mongoose.Schema({
     link: {
         type: String,
         required: true
+    },
+    githubUrl: {
+        type: String,
+        default: ""
+    },
+    imageUrl: {
+        type: String,
+        default: ""
     }
 }); 
  const coureSchema = new mongoose.Schema({

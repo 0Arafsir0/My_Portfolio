@@ -1,75 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global font */
-* {
-  font-family: "Titillium Web", sans-serif;
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  font-family: "Manrope", sans-serif;
+  background: #070b14;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Logo animation */
-.logo {
-  animation: logo 3s infinite;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: #070b14; }
+button, input, textarea { font: inherit; }
+a { text-decoration: none; }
+::selection { background: rgba(56, 189, 248, .3); color: #fff; }
 
-@keyframes logo {
-  0% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Custom scrollbar (FIXED: no theme() usage) */
 @layer utilities {
-  .scrollbar-custom {
-    scrollbar-width: thin;
-    scrollbar-color: #00bcd4 #0f172a;
-  }
-
-  .scrollbar-custom::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .scrollbar-custom::-webkit-scrollbar-track {
-    background: #0f172a;
-    border-radius: 9999px;
-  }
-
-  .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 9999px;
-  }
-
-  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #00bcd4;
-  }
+  .font-mono { font-family: "DM Mono", monospace; }
+  .scrollbar-custom { scrollbar-width: thin; scrollbar-color: #334155 #0b1220; }
+  .scrollbar-custom::-webkit-scrollbar { width: 7px; height: 7px; }
+  .scrollbar-custom::-webkit-scrollbar-track { background: #0b1220; }
+  .scrollbar-custom::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
 }
 
-/* Form inputs */
-input,
-textarea {
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding-left: 20px;
-  font-size: 16px;
-  width: 100%;
+input, textarea {
+  max-width: 100%;
+  border-radius: 8px;
 }
-
-/* Focus styles */
-input:focus {
-  outline: none;
-  border: 2px solid #555555;
-  box-shadow: 0 0 5px rgba(45, 45, 45, 0.5);
+input:focus, textarea:focus {
+  outline: 2px solid rgba(56, 189, 248, .55);
+  outline-offset: 1px;
 }
+textarea { min-height: 110px; resize: vertical; }
 
-textarea:focus {
-  height: 100px;
-  padding: 10px;
-}
-
-/* FIXED TYPO (was ant-modal-warp) */
-.ant-modal-wrap {
-  z-index: 50;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }

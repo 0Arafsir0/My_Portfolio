@@ -3,17 +3,16 @@ import { Form, Input, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Home/Loader";
 import { ShowLoading, HideLoading } from "../../redux/rootSlice";
-import axios from "axios";
+import api from "../../utils/api";
 
 function Adminabout() {
   const { portfolioData } = useSelector((state) => state.root);
   const dispatch = useDispatch();
-  const API = process.env.REACT_APP_BACKEND_URL;
 
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
-      const response = await axios.post(`${API}/api/portfolio/update-about`, {
+      const response = await api.post(`/api/portfolio/update-about`, {
         values,
         _id: portfolioData.about._id,
       });

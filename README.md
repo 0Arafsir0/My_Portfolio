@@ -1,185 +1,146 @@
+# MD Arafat Siraj — Developer Portfolio
 
+A dynamic personal portfolio built with the MERN stack. The React application reads portfolio content from an Express API backed by MongoDB. A protected admin dashboard manages the introduction, about section, education/experience entries, projects, courses, and contact details.
 
-# MERN Portfolio Website
+## Live application
 
-A personal portfolio website built using the **MERN Stack (MongoDB, Express.js, React.js, and Node.js)**. The project showcases my profile, skills, experiences, and projects through a dynamic frontend connected to a backend API and MongoDB database.
+- Frontend: https://myportfolio-gamma-bice-79.vercel.app/
+- Backend: https://my-portfolio-26gw.onrender.com/
 
-The website also includes an admin dashboard that allows me to manage and update portfolio content without manually modifying the source code.
+## Stack
 
-## Live Demo
+- React 18, React Router, Redux Toolkit
+- Tailwind CSS, Ant Design, Framer Motion, Lucide React, Three.js, React Three Fiber
+- Node.js, Express 5, Mongoose, MongoDB Atlas
+- JWT authentication, bcryptjs password hashing, express-rate-limit
+- Vercel (frontend) and Render (backend)
 
-**Frontend:** https://myportfolio-gamma-bice-79.vercel.app/
-
-**Backend:** https://my-portfolio-26gw.onrender.com/
-
-## Features
-
-- **Dynamic Portfolio:** Displays personal information, introduction, skills, projects, experiences, and other portfolio content.
-- **Admin Dashboard:** Manage portfolio content through an administrative interface.
-- **Project Management:** Add, edit, and delete portfolio projects.
-- **Experience Management:** Manage professional and academic experiences.
-- **About Section Management:** Update personal descriptions and skills.
-- **Database Integration:** Store and retrieve portfolio information using MongoDB.
-- **REST API:** Backend API built with Express.js and Node.js.
-- **Responsive Interface:** React-based frontend designed for different screen sizes.
-
-## Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| React.js | Frontend development |
-| JavaScript | Application logic |
-| Tailwind CSS | Styling |
-| Ant Design | UI components and forms |
-| Redux Toolkit | State management |
-| Axios | HTTP requests |
-| Node.js | Backend runtime |
-| Express.js | REST API development |
-| MongoDB Atlas | Cloud database |
-| Mongoose | MongoDB object modeling |
-| Vercel | Frontend deployment |
-| Render | Backend deployment |
-
-## Project Structure
+## Repository structure
 
 ```text
-MERN_Portfolio/
-│
-├── client/
+My_Portfolio/
+├── client/                 # React frontend
 │   ├── public/
 │   └── src/
 │       ├── components/
 │       ├── pages/
+│       │   ├── Admin/
+│       │   └── Home/
 │       ├── redux/
-│       ├── Resources/
-│       └── App.js
-│
-├── server/
-│   ├── config/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   └── server.js
-│
-└── README.md
+│       ├── utils/
+│       └── Resources/
+├── config/                 # MongoDB connection
+├── middleware/             # API authentication
+├── models/                 # Mongoose schemas
+├── routes/                 # Express routes
+├── server.js
+├── package.json
+└── .env.example
 ```
 
-## Installation and Setup
+## Local setup
 
-### Prerequisites
+### 1. Requirements
 
-Make sure you have installed:
-
-- Node.js
+- Node.js 20 or newer
 - npm
-- MongoDB Atlas account
+- MongoDB Atlas database or local MongoDB
 
-### 1. Clone the Repository
+### 2. Backend
 
-```bash
-git clone https://github.com/0Arafsir0/My_Portfolio.git
-```
+From the repository root:
 
 ```bash
-cd MERN_Portfolio
-```
-
-### 2. Install Backend Dependencies
-
-```bash
-cd server
 npm install
 ```
 
-Create a `.env` file inside the server directory:
+Copy `.env.example` to `.env` and configure:
 
 ```env
-MONGO_URI=your_mongodb_connection_string
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=generate_a_random_secret_at_least_32_characters_long
 PORT=5000
+CLIENT_ORIGINS=http://localhost:3000
 ```
 
-### 3. Install Frontend Dependencies
+Generate a strong JWT secret rather than using the example value. Start the API:
 
-Open another terminal:
+```bash
+npm run dev
+```
+
+The API starts only after MongoDB connects successfully.
+
+### 3. Frontend
+
+In a second terminal:
 
 ```bash
 cd client
 npm install
 ```
 
-Configure the frontend API base URL to point to your backend server.
+Copy `client/.env.example` to `client/.env`:
 
-For local development, use:
-
-```text
-http://localhost:5000
+```env
+REACT_APP_BACKEND_URL=http://localhost:5000
 ```
 
-### 4. Run the Application
-
-Start the backend:
+Start the React development server:
 
 ```bash
-cd server
 npm start
 ```
 
-Start the frontend:
+Open http://localhost:3000.
 
-```bash
-cd client
-npm start
-```
+## Admin authentication
 
-The application should now be available at:
+- Admin login: `/admin-login`
+- Admin dashboard: `/admin`
+- Login returns an eight-hour JWT.
+- All portfolio create, update, and delete endpoints require `Authorization: Bearer <token>`.
+- Admin login is rate limited.
+- Existing plaintext admin passwords are upgraded to bcrypt hashes on the first successful login after this security update.
 
-```text
-http://localhost:3000
-```
+Set `JWT_SECRET` in the backend deployment environment. Set `CLIENT_ORIGINS` to the exact deployed frontend origin(s), comma-separated if needed. Do not commit `.env` files or secrets.
 
-## API Overview
+## Portfolio API
 
-The backend provides REST API endpoints for managing portfolio information.
+Public:
+- `GET /api/portfolio/get-portfolio-data`
 
-| Endpoint | Method | Purpose |
-|---|---|---|
-| `/api/portfolio/get-portfolio-data` | GET | Retrieve portfolio data |
-| `/api/portfolio/add-project` | POST | Add a project |
-| `/api/portfolio/update-project` | POST | Update a project |
-| `/api/portfolio/delete-project` | POST | Delete a project |
-| `/api/portfolio/add-experience` | POST | Add experience |
-| `/api/portfolio/update-experience` | POST | Update experience |
-| `/api/portfolio/delete-experience` | POST | Delete experience |
-| `/api/portfolio/update-about` | POST | Update about information |
+Authentication:
+- `POST /api/portfolio/admin-login`
+- `GET /api/portfolio/admin/me`
 
-## Deployment
+Protected management routes include:
+- Intro and About updates
+- Project create, update, and delete
+- Experience create, update, and delete
+- Course create, update, and delete
+- Contact update
 
-The application is deployed using:
+## Deployment notes
 
-- **Frontend:** Vercel
-- **Backend:** Render
-- **Database:** MongoDB Atlas
+Backend environment variables on Render:
+- `MONGO_URL`
+- `JWT_SECRET` (minimum 32 characters; use a cryptographically random value)
+- `CLIENT_ORIGINS` (the exact Vercel frontend origin)
+- `PORT` (provided by Render)
 
-Environment variables must be configured in the deployment platform before running the application.
+Frontend environment variable on Vercel:
+- `REACT_APP_BACKEND_URL` (the deployed Render API base URL)
 
-## Future Improvements
+After changing environment variables, redeploy the corresponding service. Verify login and each admin mutation before considering the release complete.
 
-- Improve authentication and admin security.
-- Add image upload functionality.
-- Improve SEO and performance.
-- Add more portfolio customization options.
-- Enhance mobile responsiveness and accessibility.
+## Security notes
+
+JWTs are currently stored in browser local storage and sent as Bearer tokens. This is a practical migration from the original client implementation, but local-storage tokens remain exposed to successful cross-site scripting. Keep dependencies updated, avoid unsafe HTML injection, and consider migrating to Secure, HttpOnly cookies with CSRF protection in a later hardening phase.
 
 ## Author
 
-**MD Arafat Siraj**
-
-Computer Science and Engineering Student
-
-- GitHub: https://github.com/0Arafsir0
-- LinkedIn: https://www.linkedin.com/in/arafsir/
-
----
-
-If you find this project useful or interesting, feel free to explore the repository.
-
+**MD Arafat Siraj**  
+Computer Science and Engineering  
+GitHub: https://github.com/0Arafsir0  
+LinkedIn: https://www.linkedin.com/in/arafsir/

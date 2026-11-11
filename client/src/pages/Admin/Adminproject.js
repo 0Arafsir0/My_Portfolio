@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Modal, Form, message } from "antd";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   ShowLoading,
   HideLoading,
@@ -12,7 +12,6 @@ function Adminproject() {
   const dispatch = useDispatch();
   const { portfolioData } = useSelector((state) => state.root);
   const { projects } = portfolioData || {};
-  const API = process.env.REACT_APP_BACKEND_URL;
 
   const [showModal, setShowModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -42,10 +41,10 @@ function Adminproject() {
       };
 
       const url = isEdit
-        ? `${API}/api/portfolio/update-project`
-        : `${API}/api/portfolio/add-project`;
+        ? `/api/portfolio/update-project`
+        : `/api/portfolio/add-project`;
 
-      const response = await axios.post(url, payload);
+      const response = await api.post(url, payload);
 
       dispatch(HideLoading());
 
@@ -69,7 +68,7 @@ function Adminproject() {
     try {
       dispatch(ShowLoading());
 
-      const response = await axios.post(`${API}/api/portfolio/delete-project`, {
+      const response = await api.post(`/api/portfolio/delete-project`, {
         _id: id,
       });
 
@@ -202,8 +201,16 @@ function Adminproject() {
             <textarea className="w-full border p-2" />
           </Form.Item>
 
-          <Form.Item name="link" label="Project Link">
-            <input className="w-full border p-2" />
+          <Form.Item name="link" label="Live Demo URL">
+            <input className="w-full border p-2" placeholder="https://..." />
+          </Form.Item>
+
+          <Form.Item name="githubUrl" label="GitHub Repository URL">
+            <input className="w-full border p-2" placeholder="https://github.com/..." />
+          </Form.Item>
+
+          <Form.Item name="imageUrl" label="Project Screenshot URL">
+            <input className="w-full border p-2" placeholder="https://..." />
           </Form.Item>
 
           <button className="bg-primary text-white px-5 py-2 mt-3 w-full hover:bg-partial transition">
