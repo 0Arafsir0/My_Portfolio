@@ -417,7 +417,7 @@ function Header() {
         </motion.a>
 
         {/* Expanded desktop navigation: 1024px and above */}
-        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 min-[1280px]:flex">
+        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 lg:flex">
           {links.map((link) => (
             <motion.a
               key={link.href}
@@ -433,7 +433,7 @@ function Header() {
         </div>
 
         {/* Desktop actions */}
-        <div className="relative z-10 hidden shrink-0 items-center gap-2 xl:gap-3 min-[1280px]:flex">
+        <div className="relative z-10 hidden shrink-0 items-center gap-2 xl:gap-3 lg:flex">
           {socialLinks.map(({ href, label, icon: Icon }) => (
             <motion.a
               key={label}
@@ -476,7 +476,7 @@ function Header() {
         <motion.button
           type="button"
           whileTap={{ scale: 0.9 }}
-          className="relative z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-sky-400/40 hover:text-sky-300 min-[1280px]:hidden"
+          className="relative z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-sky-400/40 hover:text-sky-300 lg:hidden"
           onClick={() => setMenuOpen((open) => !open)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
@@ -505,7 +505,7 @@ function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.97 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl min-[1280px]:hidden"
+            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl lg:hidden"
           >
             <div className="border-b border-white/[0.07] px-6 py-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-sky-400">
