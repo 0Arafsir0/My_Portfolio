@@ -60,6 +60,39 @@ router.get("/get-portfolio-data", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+router.post("/admin-login", loginLimiter, async (req, res) => {
+  try {
+    const username = String(req.body.username || "").trim();
+    const password = String(req.body.password || "");
+    if (!username || !password) return res.status(400).json({ success: false, message: "Username and password are required." });
+
+    const admin = await users.findOne({ username });
+    if (!admin) return res.status(401).json({ success: false, message: "Invalid username or password." });
+
+    const isBcryptHash = /^\$2[aby]\$/.test(admin.password);
+    const validPassword = isBcryptHash ? await bcrypt.compare(password, admin.password) : admin.password === password;
+    if (!validPassword) return res.status(401).json({ success: false, message: "Invalid username or password." });
+
+    // Migrate legacy plaintext credentials only after a successful login.
+    if (!isBcryptHash) {
+      admin.password = await bcrypt.hash(password, 12);
+      await admin.save();
+    }
+
+    const token = jwt.sign(
+      { sub: admin._id.toString(), username: admin.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "8h", issuer: "arafsir-portfolio", audience: "portfolio-admin" }
+    );
+
+    return res.status(200).json({ success: true, message: "Login successful.", token, expiresIn: 28800, data: { id: admin._id, username: admin.username } });
+  } catch (error) {
+    console.error("Admin login failed:", error.message);
+    return res.status(500).json({ success: false, message: "Unable to complete login." });
+  }
+});
+
+
 // Verify an existing admin session. This route must remain before the protected route group.
 router.get("/admin/me", requireAdmin, (req, res) => {
   res.status(200).json({ success: true, admin: { id: req.admin.id, username: req.admin.username } });
@@ -372,37 +405,6 @@ router.post("/update-contact", async (req, res) => {
       success: false,
       message: error.message,
     });
-  }
-});
-router.post("/admin-login", loginLimiter, async (req, res) => {
-  try {
-    const username = String(req.body.username || "").trim();
-    const password = String(req.body.password || "");
-    if (!username || !password) return res.status(400).json({ success: false, message: "Username and password are required." });
-
-    const admin = await users.findOne({ username });
-    if (!admin) return res.status(401).json({ success: false, message: "Invalid username or password." });
-
-    const isBcryptHash = /^\$2[aby]\$/.test(admin.password);
-    const validPassword = isBcryptHash ? await bcrypt.compare(password, admin.password) : admin.password === password;
-    if (!validPassword) return res.status(401).json({ success: false, message: "Invalid username or password." });
-
-    // Migrate legacy plaintext credentials only after a successful login.
-    if (!isBcryptHash) {
-      admin.password = await bcrypt.hash(password, 12);
-      await admin.save();
-    }
-
-    const token = jwt.sign(
-      { sub: admin._id.toString(), username: admin.username },
-      process.env.JWT_SECRET,
-      { expiresIn: "8h", issuer: "arafsir-portfolio", audience: "portfolio-admin" }
-    );
-
-    return res.status(200).json({ success: true, message: "Login successful.", token, expiresIn: 28800, data: { id: admin._id, username: admin.username } });
-  } catch (error) {
-    console.error("Admin login failed:", error.message);
-    return res.status(500).json({ success: false, message: "Unable to complete login." });
   }
 });
 
