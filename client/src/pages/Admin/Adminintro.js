@@ -1,14 +1,14 @@
 import React from "react";
-import { Form, Input, message } from "antd";
+import { Form, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Home/Loader";
 import { ShowLoading, HideLoading } from "../../redux/rootSlice";
 import api from "../../utils/api";
 
-
 function Adminintro() {
   const { portfolioData } = useSelector((state) => state.root);
   const dispatch = useDispatch();
+
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
@@ -27,7 +27,6 @@ function Adminintro() {
       message.error(error.message);
     }
   };
- 
 
   if (!portfolioData) {
     return <Loader />;
@@ -58,16 +57,15 @@ function Adminintro() {
         <Form.Item name="imgurl" label="Image URL:">
           <input placeholder="give image URL here..." />
         </Form.Item>
-      <div className="flex justify-end w-full">
-        <button
-          type="submit"
-          className="bg-primary text-white px-5 py-2 rounded hover:bg-partial"
-        >
-          Save Changes
-        </button>
-      </div>
+        <div className="flex justify-end w-full">
+          <button
+            type="submit"
+            className="bg-primary text-white px-5 py-2 rounded hover:bg-partial"
+          >
+            Save Changes
+          </button>
+        </div>
       </Form>
-      
     </div>
   );
 }
