@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, message } from "antd";
-import axios from "axios";
+import api from "../../utils/api";
 import { ShowLoading, HideLoading, ReloadData } from "../../redux/rootSlice";
 
 function AdminCourse() {
@@ -12,7 +12,6 @@ function AdminCourse() {
   const [showModal, setShowModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [form] = Form.useForm();
-  const API = process.env.REACT_APP_BACKEND_URL;
 
   const onFinish = async (values) => {
     try {
@@ -25,8 +24,8 @@ function AdminCourse() {
         _id: selectedCourse?._id,
       };
 
-      const response = await axios.post(
-        `${API}${isEdit ? "/api/portfolio/update-course" : "/api/portfolio/add-course"}`,
+      const response = await api.post(
+        `${isEdit ? "/api/portfolio/update-course" : "/api/portfolio/add-course"}`,
         payload
       );
 
@@ -62,7 +61,7 @@ function AdminCourse() {
     try {
       dispatch(ShowLoading());
 
-      const res = await axios.post(`${API}/api/portfolio/delete-course`, {
+      const res = await api.post(`/api/portfolio/delete-course`, {
         _id: id,
       });
 
