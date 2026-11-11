@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
-import Header from "../../components/Header";
 import { Tabs } from "antd";
 import Adminintro from "./Adminintro";
 import Adminabout from "./Adminabout";
@@ -26,6 +25,11 @@ const [authorized, setAuthorized] = useState(false);
 
 
 
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    window.location.replace("/admin-login");
+  };
 
   const items = [
   {
@@ -64,22 +68,20 @@ const [authorized, setAuthorized] = useState(false);
 
   return (
     <div>
-      <Header />
-      <div className="flex gap-10 items-center justify-between px-5 py-2">
-        <h1 className="text-2xl font-bold">Admin Panel</h1>
+      <header className="flex items-center justify-between border-b border-white/10 bg-[#070b14] px-6 py-5 text-white">
+        <a href="/" className="font-mono text-xl font-bold">AS<span className="text-sky-400">.</span></a>
+        <h1 className="text-xl font-bold">Portfolio Admin</h1>
         <button
-          onClick={() => {
-            localStorage.removeItem("adminToken");
-            window.location.href = "/admin-login";
-          }}
+          onClick={handleLogout}
           className="bg-primary text-white px-3 py-1 rounded"
         >
           Logout
         </button>
-      </div>
-      <hr />
-      <div className="mt-5 p-10 sm:overflow-x-auto sm:custom-scrollbar">
+      </header>
+      <div className="min-h-screen bg-[#f8fafc] px-6 py-8 text-slate-900 sm:px-3">
+      <div className="mx-auto max-w-7xl rounded-xl bg-white p-6 shadow-sm sm:p-3">
        <Tabs defaultActiveKey="1" items={items} tabPosition="top"/>
+      </div>
       </div>
     </div>
   );
