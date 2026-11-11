@@ -1,0 +1,47 @@
+name: Portfolio CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, feature/portfolio-modernization]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend syntax and dependency check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install backend dependencies
+        run: npm install --no-audit --no-fund
+      - name: Check backend JavaScript syntax
+        run: |
+          node --check server.js
+          node --check routes/portfolioRoute.js
+          node --check middleware/auth.js
+          node --check config/dbconfig.js
+
+  frontend:
+    name: Frontend production build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install frontend dependencies
+        working-directory: client
+        run: npm install --no-audit --no-fund
+      - name: Build React application
+        working-directory: client
+        env:
+          CI: "false"
+          NODE_OPTIONS: --openssl-legacy-provider
+          REACT_APP_BACKEND_URL: https://example.invalid
+        run: npm run build
