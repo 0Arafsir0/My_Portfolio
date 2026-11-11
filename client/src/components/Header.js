@@ -521,7 +521,7 @@ function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.97 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:flex"
+            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:flex-col sm:items-center sm:justify-between sm:gap-3 sm:px-6 sm:py-4"
           >
             <div className="border-b border-white/[0.07] px-6 py-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-sky-400">
