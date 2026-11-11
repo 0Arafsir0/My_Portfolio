@@ -30,7 +30,7 @@ function About() {
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1 }} className="col-span-2 flex items-center md:col-span-1">
+          viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1 }} id="skills" className="col-span-2 flex items-center md:col-span-1">
           <div className="relative w-full overflow-hidden rounded-2xl border border-sky-400/15 bg-gradient-to-br from-sky-400/10 via-slate-900 to-indigo-500/10 p-8">
             <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-sky-400/10 blur-3xl" />
             <p className="relative font-mono text-xs uppercase tracking-[0.25em] text-sky-300">Current toolkit</p>
