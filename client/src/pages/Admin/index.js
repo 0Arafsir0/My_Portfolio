@@ -215,7 +215,7 @@ function Admin() {
   return (
     <div className="min-h-screen bg-[#070b14] text-white">
       {/* Background effects */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+      {/* <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-sky-500/[0.06] blur-[120px]" />
         <div className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-violet-500/[0.06] blur-[120px]" />
         <div
@@ -226,6 +226,25 @@ function Admin() {
             backgroundSize: "50px 50px",
           }}
         />
+      </div> */}
+      {/* Dynamic video background */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/videos/bg1.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#070b14]/85" />
+
+        {/* Gradient effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#070b14]/60 via-transparent to-[#070b14]/80" />
       </div>
 
       {/* Header */}
