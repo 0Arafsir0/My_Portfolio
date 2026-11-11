@@ -48,3 +48,20 @@ textarea { min-height: 110px; resize: vertical; }
     transition-duration: .01ms !important;
   }
 }
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
