@@ -375,9 +375,9 @@ function Header() {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <motion.nav
         variants={navVariants}
-        initial="visible"
+        initial="hidden"
         animate="visible"
-        className="portfolio-nav relative mx-auto flex h-[68px] max-w-7xl items-center justify-between rounded-2xl border border-white/[0.09] bg-[#080d1a]/85 px-4 shadow-[0_12px_50px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:h-[76px] sm:px-8"
+        className="portfolio-nav relative mx-auto flex h-[68px] max-w-7xl items-center justify-between rounded-2xl border border-white/[0.09] bg-[#080d1a]/85 px-4 shadow-[0_12px_50px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:hidden lg:flex lg:px-8"
         aria-label="Main navigation"
       >
         {/* Ambient lighting */}
@@ -505,7 +505,7 @@ function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.97 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl lg:hidden"
+            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl smflex lg:hidden"
           >
             <div className="border-b border-white/[0.07] px-6 py-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-sky-400">
