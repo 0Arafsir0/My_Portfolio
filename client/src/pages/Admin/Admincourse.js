@@ -55,7 +55,7 @@ function AdminCourse() {
     } else {
       form.resetFields();
     }
-  }, [selectedCourse]);
+  }, [form, selectedCourse]);
 
   const handleDelete = async (id) => {
     try {
