@@ -375,7 +375,7 @@ function Header() {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <motion.nav
         variants={navVariants}
-        initial="hidden"
+        initial="visible"
         animate="visible"
         className="portfolio-nav relative mx-auto flex h-[68px] max-w-7xl items-center justify-between rounded-2xl border border-white/[0.09] bg-[#080d1a]/85 px-4 shadow-[0_12px_50px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:h-[76px] sm:px-8"
         aria-label="Main navigation"
@@ -417,7 +417,7 @@ function Header() {
         </motion.a>
 
         {/* Expanded desktop navigation: 1024px and above */}
-        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 lg:hidden">
+        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 lg:flex">
           {links.map((link) => (
             <motion.a
               key={link.href}
@@ -505,7 +505,7 @@ function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.97 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl lg:flex"
+            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#080d1a]/95 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl lg:hidden"
           >
             <div className="border-b border-white/[0.07] px-6 py-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-sky-400">
