@@ -406,7 +406,7 @@ function Header() {
             <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-[#080d1a] bg-sky-400 shadow-[0_0_10px_#38bdf8]" />
           </div>
 
-          <div className="hidden sm:block">
+          <div className="sm:hidden lg:block">
             <p className="text-sm font-bold tracking-wide text-white">
               Arafat Siraj
             </p>
@@ -417,7 +417,7 @@ function Header() {
         </motion.a>
 
         {/* Expanded desktop navigation: 1024px and above */}
-        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 min-[728px]:flex">
+        <div className="relative z-10 lg:flex sm:hidden items-center gap-5 xl:gap-7 min-[728px]:flex">
           {links.map((link) => (
             <motion.a
               key={link.href}
