@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Github, X } from "lucide-react";
 import SectionTitle from "../../components/SectionTitle";
 import { useSelector } from "react-redux";
+
+const EMPTY_PROJECTS = [];
 
 function ProjectCard({ project, index, onSelect }) {
   const tech = Array.isArray(project.technologies) ? project.technologies : [];
@@ -44,9 +46,9 @@ function ProjectCard({ project, index, onSelect }) {
 
 function Projects() {
   const { portfolioData } = useSelector((state) => state.root);
-  const projects = Array.isArray(portfolioData?.projects) ? portfolioData.projects : [];
+  const projects = Array.isArray(portfolioData?.projects) ? portfolioData.projects : EMPTY_PROJECTS;
   const [selected, setSelected] = useState(null);
-  const featured = useMemo(() => projects, [projects]);
+
 
   return (
     <section id="projects" className="scroll-mt-28 py-24">
@@ -56,9 +58,9 @@ function Projects() {
         <a href="https://github.com/0Arafsir0" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-sky-300 transition hover:text-white">More on GitHub <ArrowUpRight size={16} /></a>
       </div>
 
-      {featured.length ? (
+      {projects.length ? (
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-2 md:grid-cols-1">
-          {featured.map((project, index) => <ProjectCard key={project._id || project.title} project={project} index={index} onSelect={setSelected} />)}
+          {projects.map((project, index) => <ProjectCard key={project._id || project.title} project={project} index={index} onSelect={setSelected} />)}
         </div>
       ) : (
         <div className="rounded-2xl border border-dashed border-white/15 p-12 text-center text-slate-500">Projects will appear here soon.</div>
