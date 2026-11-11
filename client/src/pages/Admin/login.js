@@ -1,67 +1,52 @@
 import React, { useState } from "react";
 import { message } from "antd";
-import axios from "axios";
+import api from "../../utils/api";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/rootSlice";
 
 function AdminLogin() {
-    const dispatch = useDispatch();
-    const API = process.env.REACT_APP_BACKEND_URL;
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({ username: "", password: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
-
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    if (submitting) return;
     try {
+      setSubmitting(true);
       dispatch(ShowLoading());
-      const res = await axios.post(`${API}/api/portfolio/admin-login`, user);
-      dispatch(HideLoading());
-
-      if (res.data.success) {
+      const res = await api.post("/api/portfolio/admin-login", user);
+      if (res.data.success && res.data.token) {
+        localStorage.setItem("adminToken", res.data.token);
         message.success(res.data.message);
-        localStorage.setItem("adminToken", JSON.stringify(res.data));
-        window.location.href = "/admin";
+        window.location.assign("/admin");
       } else {
-        alert(res.data.message);
+        message.error(res.data.message || "Login failed.");
       }
-    } catch (err) {
-      console.log(err);
-      alert(err.response?.data?.message || err.message);
+    } catch (error) {
+      message.error(error.response?.data?.message || "Unable to sign in.");
+    } finally {
+      setSubmitting(false);
       dispatch(HideLoading());
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-primary">
-      <div className="bg-white p-6 rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-5 text-center">Admin Login</h1>
-
-        <input
-          type="text"
-          placeholder="Username"
-          className="w-full border p-2 mb-3"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border p-2 mb-5"
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-
-        <button
-          onClick={handleLogin}
-          className="w-full bg-primary text-white py-2 hover:bg-partial"
-        >
-          Login
+    <main className="flex min-h-screen items-center justify-center bg-primary px-4">
+      <form onSubmit={handleLogin} className="w-full max-w-sm rounded-xl border border-white/10 bg-white p-8 shadow-2xl">
+        <h1 className="mb-2 text-center text-2xl font-bold">Admin Login</h1>
+        <p className="mb-6 text-center text-sm text-gray-500">Sign in to manage portfolio content.</p>
+        <label className="mb-2 block text-sm font-medium" htmlFor="username">Username</label>
+        <input id="username" type="text" autoComplete="username" required value={user.username}
+          onChange={(event) => setUser({ ...user, username: event.target.value })} className="mb-4 w-full rounded border p-3" />
+        <label className="mb-2 block text-sm font-medium" htmlFor="password">Password</label>
+        <input id="password" type="password" autoComplete="current-password" required value={user.password}
+          onChange={(event) => setUser({ ...user, password: event.target.value })} className="mb-6 w-full rounded border p-3" />
+        <button disabled={submitting} type="submit" className="w-full rounded bg-primary py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-60">
+          {submitting ? "Signing in..." : "Sign in"}
         </button>
-      </div>
-    </div>
+      </form>
+    </main>
   );
 }
 
