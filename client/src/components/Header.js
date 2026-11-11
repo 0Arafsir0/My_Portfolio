@@ -417,7 +417,7 @@ function Header() {
         </motion.a>
 
         {/* Expanded desktop navigation: 1024px and above */}
-        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 lg:flex">
+        <div className="relative z-10 hidden items-center gap-5 xl:gap-7 lg:hidden">
           {links.map((link) => (
             <motion.a
               key={link.href}
@@ -476,7 +476,7 @@ function Header() {
         <motion.button
           type="button"
           whileTap={{ scale: 0.9 }}
-          className="relative z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-sky-400/40 hover:text-sky-300 lg:flex"
+          className="relative z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-sky-400/40 hover:text-sky-300 lg:hidden"
           onClick={() => setMenuOpen((open) => !open)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
