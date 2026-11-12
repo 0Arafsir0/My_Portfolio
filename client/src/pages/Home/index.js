@@ -137,7 +137,7 @@ function Home() {
           className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
         >
           {/* Background Grid */}
-          <div
+          {/* <div
             className="absolute inset-0 opacity-[0.12]"
             style={{
               backgroundImage:
@@ -146,7 +146,26 @@ function Home() {
               maskImage:
                 "linear-gradient(to bottom, black, transparent 85%)",
             }}
-          />
+          /> */}
+           {/* Dynamic video background */}
+          <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            >
+              <source src="/videos/bg2.mp4" type="video/mp4" />
+            </video>
+
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-[#070b14]/85" />
+
+            {/* Gradient effects */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#070b14]/60 via-transparent to-[#070b14]/80" />
+          </div>
 
           {/* Top Cyan Glow */}
           <motion.div
