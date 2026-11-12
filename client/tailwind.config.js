@@ -4,27 +4,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#332d2d",
-        secondary: "#cdeaecff",
-        tertiary: "#919497ff",
-        partial: "#60a1f7",
+        primary: "#070b14",
+        secondary: "#e2e8f0",
+        tertiary: "#94a3b8",
+        partial: "#38bdf8",
+        accent: "#6366f1",
+      },
+      fontFamily: {
+        sans: ["Manrope", "sans-serif"],
+        mono: ["DM Mono", "monospace"],
+      },
+      boxShadow: {
+        glow: "0 0 70px rgba(56, 189, 248, 0.16)",
       },
     },
     screens: {
       "2xl": { max: "1535px" },
-      // => @media (max-width: 1535px) { ... }
-
       xl: { max: "1279px" },
-      // => @media (max-width: 1279px) { ... }
-
       lg: { max: "1023px" },
-      // => @media (max-width: 1023px) { ... }
-
       md: { max: "767px" },
-      // => @media (max-width: 767px) { ... }
-
       sm: { max: "639px" },
-      // => @media (max-width: 639px) { ... }
     },
   },
   plugins: [],

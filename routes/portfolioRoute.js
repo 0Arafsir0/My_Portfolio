@@ -7,7 +7,13 @@ const {
   Experience,
   Course,
 } = require("../models/portfoliomodel");
-const users =require("../models/users");
+const users = require("../models/users");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { rateLimit } = require("express-rate-limit");
+const { requireAdmin } = require("../middleware/auth");
+
+const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 10, standardHeaders: "draft-8", legacyHeaders: false, message: { success: false, message: "Too many login attempts. Try again later." } });
 
 //get all portfolio data
 // router.get("/get-portfolio-data", async (req, res) => {
@@ -15,7 +21,7 @@ const users =require("../models/users");
 //     const intros = await Intro.find();
 //     const abouts = await About.find();
 //     const projects = await Project.find();
-//     const contacts = await Contact.find();
+//     const contacts = await Contact.find().select("name email phone country");
 //     const experiences = await Experience.find();
 //     const courses = await Course.find();
 //     res.status(200).send({
@@ -54,6 +60,47 @@ router.get("/get-portfolio-data", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+router.post("/admin-login", loginLimiter, async (req, res) => {
+  try {
+    const username = String(req.body.username || "").trim();
+    const password = String(req.body.password || "");
+    if (!username || !password) return res.status(400).json({ success: false, message: "Username and password are required." });
+
+    const admin = await users.findOne({ username });
+    if (!admin) return res.status(401).json({ success: false, message: "Invalid username or password." });
+
+    const isBcryptHash = /^\$2[aby]\$/.test(admin.password);
+    const validPassword = isBcryptHash ? await bcrypt.compare(password, admin.password) : admin.password === password;
+    if (!validPassword) return res.status(401).json({ success: false, message: "Invalid username or password." });
+
+    // Migrate legacy plaintext credentials only after a successful login.
+    if (!isBcryptHash) {
+      admin.password = await bcrypt.hash(password, 12);
+      await admin.save();
+    }
+
+    const token = jwt.sign(
+      { sub: admin._id.toString(), username: admin.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "8h", issuer: "arafsir-portfolio", audience: "portfolio-admin" }
+    );
+
+    return res.status(200).json({ success: true, message: "Login successful.", token, expiresIn: 28800, data: { id: admin._id, username: admin.username } });
+  } catch (error) {
+    console.error("Admin login failed:", error.message);
+    return res.status(500).json({ success: false, message: "Unable to complete login." });
+  }
+});
+
+
+// Verify an existing admin session. This route must remain before the protected route group.
+router.get("/admin/me", requireAdmin, (req, res) => {
+  res.status(200).json({ success: true, admin: { id: req.admin.id, username: req.admin.username } });
+});
+
+// All content-management endpoints below this point require a valid admin JWT.
+router.use(requireAdmin);
+
 //update intro
 // router.post("/update-intro", async (req, res) => {
 //   try {
@@ -360,40 +407,5 @@ router.post("/update-contact", async (req, res) => {
     });
   }
 });
-router.post("/admin-login", async (req, res) => {
-  try {
-    const { username, password } = req.body;
 
-    const admin = await users.findOne({ username });
-
-    if (!admin) {
-      return res.status(404).send({
-        success: false,
-        message: "Admin not found",
-      });
-    }
-
-    if (admin.password !== password) {
-      return res.status(401).send({
-        success: false,
-        message: "Invalid username or password",
-      });
-    }
-
-    const adminData = admin.toObject();
-    delete adminData.password;
-
-    res.status(200).send({
-      success: true,
-      message: "Login successful",
-      data: adminData,
-    });
-
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      message: error.message,
-    });
-  }
-});
 module.exports = router;
